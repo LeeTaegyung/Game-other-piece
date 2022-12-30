@@ -1,0 +1,41 @@
+@import 'reset';
+:root {
+    --color: rgb(255, 211, 155);
+    --itemSize: 60px;
+}
+#wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+
+    .util {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 400px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .stage {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 400px;
+        padding: 2px;
+
+        .item {
+            display: block;
+            width: var(--itemSize);
+            height: var(--itemSize);
+            margin: 1px;
+            background: var(--color);
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    }
+
+}
