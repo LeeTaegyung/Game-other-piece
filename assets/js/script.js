@@ -19,26 +19,26 @@
         {level: 2, step: 120, grid: 2},
         {level: 3, step: 65, grid: 3},
         {level: 4, step: 65, grid: 3},
-        {level: 5, step: 60, grid: 3},
-        {level: 6, step: 60, grid: 4},
-        {level: 7, step: 55, grid: 4},
-        {level: 8, step: 55, grid: 4},
+        {level: 5, step: 55, grid: 3},
+        {level: 6, step: 55, grid: 4},
+        {level: 7, step: 50, grid: 4},
+        {level: 8, step: 50, grid: 4},
         {level: 9, step: 50, grid: 4},
-        {level: 10, step: 50, grid: 4},
+        {level: 10, step: 45, grid: 4},
         {level: 11, step: 45, grid: 5},
-        {level: 12, step: 45, grid: 5},
-        {level: 13, step: 45, grid: 5},
+        {level: 12, step: 42, grid: 5},
+        {level: 13, step: 42, grid: 5},
         {level: 14, step: 40, grid: 5},
         {level: 15, step: 40, grid: 5},
-        {level: 16, step: 35, grid: 6},
-        {level: 17, step: 35, grid: 6},
+        {level: 16, step: 38, grid: 6},
+        {level: 17, step: 38, grid: 6},
         {level: 18, step: 35, grid: 6},
-        {level: 19, step: 30, grid: 6},
-        {level: 20, step: 30, grid: 6},
-        {level: 21, step: 25, grid: 7},
-        {level: 22, step: 25, grid: 7},
-        {level: 23, step: 20, grid: 7},
-        {level: 24, step: 20, grid: 7},
+        {level: 19, step: 35, grid: 6},
+        {level: 20, step: 35, grid: 6},
+        {level: 21, step: 30, grid: 7},
+        {level: 22, step: 30, grid: 7},
+        {level: 23, step: 25, grid: 7},
+        {level: 24, step: 25, grid: 7},
         {level: 25, step: 20, grid: 7},
         {level: 26, step: 20, grid: 8},
         {level: 27, step: 15, grid: 8},
@@ -75,20 +75,20 @@
     }
 
     function setGame() {
-        if(isStart) {
-            const mainColor = getColor();
-            const otherColor = getOtherColor(mainColor);
-            const rgbValue = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
-            const otherRgbValue = `rgb(${otherColor[0]}, ${otherColor[1]}, ${otherColor[2]})`;
-            otherIndex = Math.floor(Math.random() * (levelInfo[level].grid * levelInfo[level].grid));
-            items = Array.from({length: levelInfo[level].grid * levelInfo[level].grid}).fill(rgbValue);
-            items[otherIndex] = otherRgbValue;
-            levelEl.innerHTML = level + 1;
-            timeEl.innerHTML = gameTime;
-    
-            // 피스생성
-            items.forEach(ele => { createItem(ele) });
-        }
+        if(!isStart) return;
+
+        const mainColor = getColor();
+        const otherColor = getOtherColor(mainColor);
+        const rgbValue = `rgb(${mainColor[0]}, ${mainColor[1]}, ${mainColor[2]})`;
+        const otherRgbValue = `rgb(${otherColor[0]}, ${otherColor[1]}, ${otherColor[2]})`;
+        otherIndex = Math.floor(Math.random() * (levelInfo[level].grid * levelInfo[level].grid));
+        items = Array.from({length: levelInfo[level].grid * levelInfo[level].grid}).fill(rgbValue);
+        items[otherIndex] = otherRgbValue;
+        levelEl.innerHTML = level + 1;
+        timeEl.innerHTML = gameTime;
+
+        // 피스생성
+        items.forEach(ele => { createItem(ele) });
     }
 
     function createItem(color) {
@@ -123,27 +123,27 @@
     }
 
     stage.addEventListener('click', function(e){
-        if(isStart) {
-            const ItemAll = Array.from(document.querySelectorAll('.item'));
-            const selectItemIdx = ItemAll.findIndex(ele => ele == e.target.closest('.item'));
-            
-            if(timeInterval == undefined) timeStart();
-            if(level == 29) {
-                clearInterval(timeInterval);
-                isStart = false;
-                return;
-            }
+        if(!isStart) return;
 
-            // 정답 선택시
-            if(selectItemIdx === otherIndex) {
-                //타임 리셋, 레벨업, 
-                stage.innerHTML = '';
-                level++;
-                gameTime = 15;
-                setGame();
-            } else {
-                gameTime -= 3;
-            }
+        const ItemAll = Array.from(document.querySelectorAll('.item'));
+        const selectItemIdx = ItemAll.findIndex(ele => ele == e.target.closest('.item'));
+        
+        if(timeInterval == undefined) timeStart();
+        if(level == 29) {
+            clearInterval(timeInterval);
+            isStart = false;
+            return;
+        }
+
+        // 정답 선택시
+        if(selectItemIdx === otherIndex) {
+            //타임 리셋, 레벨업, 
+            stage.innerHTML = '';
+            level++;
+            gameTime = 15;
+            setGame();
+        } else {
+            gameTime -= 3;
         }
     })
 
