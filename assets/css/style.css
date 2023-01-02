@@ -38,7 +38,19 @@ html, body {
   justify-content: space-between;
   width: 400px;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 16px;
+}
+#wrap .util .time .time_val {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 700;
+}
+#wrap .util .time.bounce .time_val {
+  animation: bounce 0.3s linear alternate;
+}
+#wrap .util .level_val {
+  font-size: 20px;
+  font-weight: 700;
 }
 #wrap .stage {
   display: flex;
@@ -56,6 +68,86 @@ html, body {
   background: var(--color);
   cursor: pointer;
   border-radius: 5px;
+}
+#wrap .game_end {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: red;
+  overflow: hidden;
+  -webkit-text-stroke: solid;
+  -webkit-text-stroke-color: #fff;
+  -webkit-text-stroke-width: 1px;
+}
+#wrap .game_end span {
+  display: block;
+  min-width: 30px;
+  min-height: 1px;
+  transform: translateX(100%);
+  opacity: 0;
+  animation: endAni 1s linear alternate;
+}
+#wrap .game_end span:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+#wrap .game_end span:nth-of-type(3) {
+  animation-delay: 0.2s;
+}
+#wrap .game_end span:nth-of-type(4) {
+  animation-delay: 0.3s;
+}
+#wrap .game_end span:nth-of-type(5) {
+  animation-delay: 0.4s;
+}
+#wrap .game_end span:nth-of-type(6) {
+  animation-delay: 0.5s;
+}
+#wrap .game_end span:nth-of-type(7) {
+  animation-delay: 0.6s;
+}
+#wrap .game_end span:nth-of-type(8) {
+  animation-delay: 0.7s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes endAni {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-10%);
+    opacity: 1;
+  }
+  15% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  90% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

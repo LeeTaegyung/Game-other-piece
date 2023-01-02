@@ -16,7 +16,28 @@
         justify-content: space-between;
         width: 400px;
         margin-bottom: 10px;
-        font-size: 18px;
+        font-size: 16px;
+
+        .time {
+
+            .time_val {
+                display: inline-block;
+                font-size: 20px;
+                font-weight: 700;
+            }
+
+            &.bounce {
+                .time_val {
+                    animation: bounce 0.3s linear alternate;
+                }
+            }
+
+        }
+
+        .level_val {
+            font-size: 20px;
+            font-weight: 700;
+        }
     }
 
     .stage {
@@ -38,4 +59,57 @@
         }
     }
 
+    .game_end {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 100px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: red;
+        overflow: hidden;
+        -webkit-text-stroke: solid;
+        -webkit-text-stroke-color: #fff;
+        -webkit-text-stroke-width: 1px;
+
+        span {
+            display: block;
+            min-width: 30px;
+            min-height: 1px;
+            transform: translateX(100%);
+            opacity: 0;
+            animation: endAni 1s linear alternate;
+        }
+        
+        @for $i from 1 to 8 {
+            span:nth-of-type(#{$i + 1}) {
+                animation-delay: $i * 0.1s;
+            }
+        }
+    }
+
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes endAni {
+    0% { transform: translateX(100%); opacity: 0; }
+    10% { transform: translateX(-10%); opacity: 1; }
+    15% { transform: translateX(0%); opacity: 1; }
+    90% { transform: translateX(0%); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 0; }
 }
