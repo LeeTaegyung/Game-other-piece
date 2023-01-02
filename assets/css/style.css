@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Quantico:wght@400;700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -38,6 +38,7 @@ html, body {
   justify-content: space-between;
   width: 400px;
   margin-bottom: 10px;
+  margin-top: auto;
   font-size: 16px;
 }
 #wrap .util .time .time_val {
@@ -114,6 +115,16 @@ html, body {
 }
 #wrap .game_end span:nth-of-type(8) {
   animation-delay: 0.7s;
+}
+#wrap .notice {
+  margin-top: auto;
+  padding-bottom: 10px;
+  font-weight: 700;
+  font-family: "Gowun Dodum", sans-serif;
+  text-align: center;
+}
+#wrap .notice strong {
+  color: red;
 }
 
 @keyframes bounce {

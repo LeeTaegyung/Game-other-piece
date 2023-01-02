@@ -16,6 +16,7 @@
         justify-content: space-between;
         width: 400px;
         margin-bottom: 10px;
+        margin-top: auto;
         font-size: 16px;
 
         .time {
@@ -89,6 +90,18 @@
             span:nth-of-type(#{$i + 1}) {
                 animation-delay: $i * 0.1s;
             }
+        }
+    }
+
+    .notice {
+        margin-top: auto;
+        padding-bottom: 10px;
+        font-weight: 700;
+        font-family: 'Gowun Dodum', sans-serif;
+        text-align: center;
+
+        strong {
+            color: red;
         }
     }
 
