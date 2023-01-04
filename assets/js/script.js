@@ -6,6 +6,7 @@
     // 다른 색상 표시(난이도에 따라 rgb 색상 조절);
     // 아이템 셔플
     // 스테이지마다 개수 증가
+    const wrap = document.getElementById('wrap');
     const stage = document.querySelector('.stage');
     const stageWidth = stage.clientWidth;
     const stagePadding = window.getComputedStyle(stage).getPropertyValue('padding').split('px')[0];
@@ -132,7 +133,6 @@
     }
 
     function gameEnd() {
-        const wrap = document.getElementById('wrap');
         const endEl = document.createElement('div');
         endEl.classList.add('game_end');
         endEl.innerHTML = `<span>g</span><span>a</span><span>m</span><span>e</span><span></span><span>e</span><span>n</span><span>d</span>`;
@@ -143,35 +143,81 @@
         wrap.appendChild(endEl);
         setTimeout(function(){
             endEl.remove();
+            createReset();
         }, 6000);
     }
 
+    console.log();
 
-    stage.addEventListener('click', function(e){
-        if(!isStart) return;
-
-        const ItemAll = Array.from(document.querySelectorAll('.item'));
-        const selectItemIdx = ItemAll.findIndex(ele => ele == e.target.closest('.item'));
+    function createReset() {
+        const resetEl = document.createElement('div');
+        const resetFirstBtn = document.createElement('button');
+        const resetCurrentBtn = document.createElement('button');
         
-        if(timeInterval == undefined) timeStart();
-        if(level === 29) { // 게임 종료
-            gameEnd();
-            return;
-        }
+        resetEl.classList.add('end_util');
+        resetFirstBtn.classList.add('reset_btn');
+        resetCurrentBtn.classList.add('reset_btn');
+        resetFirstBtn.dataset.resetType = 'first';
+        resetCurrentBtn.dataset.resetType = 'current';
+        resetFirstBtn.innerHTML = '<strong>처음</strong>부터 다시 시작';
+        resetCurrentBtn.innerHTML = '<strong>현재 레벨</strong>부터 다시 시작';
 
-        // 정답 선택시
-        if(selectItemIdx === otherIndex) {
-            //타임 리셋, 레벨업, 
-            clearInterval(timeInterval);
-            stage.innerHTML = '';
-            level++;
-            gameTime = 15;
-            setGame();
-            timeStart();
-        } else {
-            gameTime -= 3;
+        resetEl.style.top = stage.getBoundingClientRect().bottom + 10 + 'px';
+        
+        wrap.appendChild(resetEl);
+        resetEl.appendChild(resetFirstBtn);
+        resetEl.appendChild(resetCurrentBtn);
+
+        resetFirstBtn.addEventListener('click', gameReset);
+        resetCurrentBtn.addEventListener('click', gameReset);
+    }
+
+    function gameReset() {
+
+        if(this.dataset.resetType == 'first') {
+            level = 0;
+        }
+        gameTime = 15;
+        isStart = true;
+        this.closest('.end_util').remove();
+        stage.innerHTML = '';
+        setGame();
+        timeStart();
+    }
+
+    // 아이템 클릭
+    stage.addEventListener('click', function(e){
+        const target = e.target;
+        if(!isStart) return;
+        
+        if(target.closest('.item')) {
+            console.log('아이템 클릭~');
+
+            const ItemAll = Array.from(document.querySelectorAll('.item'));
+            const selectItemIdx = ItemAll.findIndex(ele => ele === target.closest('.item'));
+            
+            if(timeInterval === undefined) timeStart();
+            if(level === 29) { // 게임 종료
+                gameEnd();
+                return;
+            }
+    
+            // 정답 선택시
+            if(selectItemIdx === otherIndex) {
+                //타임 리셋, 레벨업, 
+                clearInterval(timeInterval);
+                stage.innerHTML = '';
+                level++;
+                gameTime = 15;
+                setGame();
+                timeStart();
+            } else {
+                gameTime -= 3;
+            }
         }
     })
 
+    // 통계 -> 몽고DB
+    // game end 랑 clear로 나눠야할듯.
 
 })()
