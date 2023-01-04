@@ -126,16 +126,17 @@
                 }, 400);
             }
 
+            // 제한시간 종료시 게임종료
             if(gameTime <= 0) {
-                gameEnd();
+                gameEnd('game end');
             }
         }, 1000);
     }
 
-    function gameEnd() {
+    function gameEnd(txt) {
         const endEl = document.createElement('div');
         endEl.classList.add('game_end');
-        endEl.innerHTML = `<span>g</span><span>a</span><span>m</span><span>e</span><span></span><span>e</span><span>n</span><span>d</span>`;
+        endEl.innerHTML = gameTxt(txt);
 
         clearInterval(timeInterval);
         isStart = false;
@@ -147,7 +148,15 @@
         }, 6000);
     }
 
-    console.log();
+    function gameTxt(txt) {
+        let txtInTag = '';
+
+        Array.from(txt).forEach(ele => {
+            txtInTag += `<span>${ele}</span>`;
+        })
+        return txtInTag;
+    }
+    
 
     function createReset() {
         const resetEl = document.createElement('div');
@@ -189,21 +198,18 @@
     stage.addEventListener('click', function(e){
         const target = e.target;
         if(!isStart) return;
-        
-        if(target.closest('.item')) {
-            console.log('아이템 클릭~');
 
-            const ItemAll = Array.from(document.querySelectorAll('.item'));
-            const selectItemIdx = ItemAll.findIndex(ele => ele === target.closest('.item'));
-            
-            if(timeInterval === undefined) timeStart();
-            if(level === 29) { // 게임 종료
-                gameEnd();
+        const ItemAll = Array.from(document.querySelectorAll('.item'));
+        const selectItemIdx = ItemAll.findIndex(ele => ele === target.closest('.item'));
+        
+        if(timeInterval === undefined) timeStart();
+
+        // 정답 선택시
+        if(selectItemIdx === otherIndex) {
+            if(level === levelInfo.length - 1) { // 마지막 라운드 게임 종료
+                gameEnd('clear!');
                 return;
-            }
-    
-            // 정답 선택시
-            if(selectItemIdx === otherIndex) {
+            } else {
                 //타임 리셋, 레벨업, 
                 clearInterval(timeInterval);
                 stage.innerHTML = '';
@@ -211,9 +217,9 @@
                 gameTime = 15;
                 setGame();
                 timeStart();
-            } else {
-                gameTime -= 3;
             }
+        } else {
+            gameTime -= 3;
         }
     })
 
