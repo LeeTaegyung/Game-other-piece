@@ -40,11 +40,31 @@
         {level: 23, step: 16, grid: 7},
         {level: 24, step: 15, grid: 7},
         {level: 25, step: 15, grid: 7},
-        {level: 26, step: 10, grid: 8},
-        {level: 27, step: 10, grid: 8},
-        {level: 28, step: 10, grid: 8},
-        {level: 29, step: 8, grid: 8},
-        {level: 30, step: 5, grid: 8},
+        {level: 26, step: 13, grid: 8},
+        {level: 27, step: 13, grid: 8},
+        {level: 28, step: 13, grid: 8},
+        {level: 29, step: 13, grid: 8},
+        {level: 30, step: 13, grid: 8},
+        {level: 31, step: 10, grid: 8},
+        {level: 32, step: 10, grid: 8},
+        {level: 33, step: 10, grid: 8},
+        {level: 34, step: 10, grid: 8},
+        {level: 35, step: 10, grid: 8},
+        {level: 36, step: 9, grid: 8},
+        {level: 37, step: 9, grid: 8},
+        {level: 38, step: 9, grid: 8},
+        {level: 39, step: 9, grid: 8},
+        {level: 40, step: 9, grid: 8},
+        {level: 41, step: 7, grid: 9},
+        {level: 42, step: 7, grid: 9},
+        {level: 43, step: 7, grid: 9},
+        {level: 44, step: 7, grid: 9},
+        {level: 45, step: 7, grid: 9},
+        {level: 46, step: 6, grid: 9},
+        {level: 47, step: 5, grid: 9},
+        {level: 48, step: 4, grid: 9},
+        {level: 49, step: 3, grid: 9},
+        {level: 50, step: 3, grid: 9},
     ]
     let items;
     let gameTime = 15;
@@ -134,6 +154,7 @@
     }
 
     function gameEnd(txt) {
+
         const endEl = document.createElement('div');
         endEl.classList.add('game_end');
         endEl.innerHTML = gameTxt(txt);
@@ -142,10 +163,16 @@
         isStart = false;
 
         wrap.appendChild(endEl);
-        setTimeout(function(){
+
+        new Promise((resolve) => {
+            setTimeout(function(){
+                resolve();
+            }, 3000);
+        }).then(() => {
             endEl.remove();
             createReset();
-        }, 6000);
+        })
+
     }
 
     function gameTxt(txt) {
@@ -223,7 +250,6 @@
         }
     })
 
-    // 통계 -> 몽고DB
-    // game end 랑 clear로 나눠야할듯.
+    // 통계 -> 몽고DB(웹호스팅을 따로 써야 서버를 구축할 수 있음. - 고민해보기)
 
 })()
