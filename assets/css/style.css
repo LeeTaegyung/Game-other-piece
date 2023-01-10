@@ -143,16 +143,6 @@ html, body {
 #wrap .game_end span:nth-of-type(8) {
   animation-delay: 0.7s;
 }
-#wrap .notice {
-  margin-top: auto;
-  padding-bottom: 10px;
-  font-weight: 700;
-  font-family: "Gowun Dodum", sans-serif;
-  text-align: center;
-}
-#wrap .notice strong {
-  color: red;
-}
 
 @keyframes bounce {
   0% {
