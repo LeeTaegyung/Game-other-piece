@@ -120,14 +120,7 @@
     }
 
     function getOtherColor(color) {
-        let minusValue;
-        let changeOtherColor = color.map(ele => ele + levelInfo[level].step);
-        let minusFilter = changeOtherColor.findIndex(ele => ele > 255);
-
-        if(minusFilter === -1) return changeOtherColor;
-
-        minusValue = [...changeOtherColor].sort((a, b) => a - b)[0];
-        return changeOtherColor.map(ele => ele + Math.abs(minusValue) + 2);
+        return color.map(ele => ele + levelInfo[level].step);
     }
     
     function timeStart() {
